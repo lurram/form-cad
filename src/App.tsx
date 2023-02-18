@@ -2,17 +2,18 @@ import InputMask from "react-input-mask";
 import axios from 'axios'
 import { FormEvent, useState } from 'react'
 import './global.css'
+import { Loading } from './Loading'
 
 async function getCEP(cep: string) {
   try {
-    const res = await axios.get(`https://cdn.apicep.com/file/apicep/${cep}.json`)
+    const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
     return ({
-      address: res.data.address,
+      address: res.data.logradouro,
       number: '',
-      code: res.data.code,
-      state: res.data.state,
-      district: res.data.district,
-      city: res.data.city
+      code: res.data.cep,
+      state: res.data.uf,
+      district: res.data.bairro,
+      city: res.data.localidade
     })
   }
   catch (errors) {
@@ -39,8 +40,13 @@ export function App() {
     city: '',
   })
 
+  const [isSending, setIsSending] = useState(false)
+  
+
   const setCEP = async (cep: string) => {
-    const response = await getCEP(cep)
+    const cepCode = cep.replace(/\D/g, '')
+    setIsSending(true);
+    const response = await getCEP(cepCode)
     setStatement({
       address: response?.address,
       number: '',
@@ -49,6 +55,8 @@ export function App() {
       district: response?.district,
       city: response?.city
     })
+    setTimeout(() => {getCEP}, 500000);
+    setIsSending(false);
     document.getElementById('number')?.focus()
   }
 
@@ -105,7 +113,9 @@ export function App() {
         onChange={handler}
         onBlur={(e) => setCEP(e.target.value)}
         required={true}
-        type='text' /><br />
+        type='text' />
+        {isSending ? <Loading />:''}
+        <br />
 
       <br /><label>Endereço: </label>
       <input
@@ -159,7 +169,9 @@ export function App() {
         onChange={handler}
         type='text' /><br />
 
-      <br /><button type='submit'>Enviar</button>
+      <br /><button type='submit'>
+        Enviar
+        </button>
     </form>
     </>
   )
