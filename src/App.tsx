@@ -78,35 +78,40 @@ export function App() {
 
   return (
     <>
+    <div className="container">
     <h1>Cadastro Cliente</h1>
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className='form-container'>
       <label>Nome: </label>
       <input
+        className="form_input"
         name='name'
         value={personal.name}
         onChange={handler}
         required={true}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>Idade: </label>
       <input
+        className="form_input"
         name='age'
         value={personal.age}
         onChange={handler}
         required={true}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>CPF: </label>
       <InputMask
+        className="form_input"
         mask='999.999.999-99'
         name='cpf'
         value={personal.cpf}
         onChange={handler}
         required={true}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>CEP: </label>
       <InputMask
+        className="form_input"
         mask='99999-999'
         name='code'
         value={statement.code}
@@ -115,64 +120,72 @@ export function App() {
         required={true}
         type='text' />
         {isSending ? <Loading />:''}
-        <br />
+        
 
       <br /><label>Endereço: </label>
       <input
+        className="form_input"
         name='address'
         value={statement.address}
         onChange={handler}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>Número: </label>
       <input
+        className="form_input"
         id="number"
         name='number'
         value={statement.number}
         onChange={handler}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>Bairro: </label>
       <input
+        className="form_input"
         name='district'
         value={statement.district}
         onChange={handler}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>Cidade: </label>
       <input
+        className="form_input"
         name='city'
         value={statement.city}
         onChange={handler}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>Estado: </label>
       <input
+        className="form_input"
         name='state'
         value={statement.state}
         onChange={handler}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>Email: </label>
       <input
+        className="form_input"
         name='email'
         value={personal.email}
         onChange={handler}
         required={true}
-        type='text' /><br />
+        type='text' />
 
       <br /><label>Telefone: </label>
       <InputMask
+        className="form_input"
         mask='(99)99999-9999'
         name='phone'
         value={personal.phone}
         onChange={handler}
-        type='text' /><br />
+        type='text' />
 
-      <br /><button type='submit'>
+      <button type='submit' className="submit_btn">
         Enviar
         </button>
     </form>
+    </div>
     </>
   )
 }
